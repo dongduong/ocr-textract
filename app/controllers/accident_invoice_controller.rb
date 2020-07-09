@@ -26,7 +26,9 @@ class AccidentInvoiceController < ApplicationController
       redirect_to accident_invoice_index_path, notice: 'Invoices are created Susscessful'
     end
   rescue StandardError => e
+    puts "==================================="
     puts e.message
+    puts "==================================="
     redirect_to accident_invoice_index_path, error: 'Failed to create new Invoices'
   end
 
