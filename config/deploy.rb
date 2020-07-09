@@ -1,8 +1,8 @@
 # Change these
 server '35.224.188.100', port: 22, roles: [:web, :app, :db], primary: true
 
-set :repo_url,        'git@github.com:mtcld/OCR-textract.git'
-set :application,     'OCR-textract'
+set :repo_url,        'git@github.com:dongduong/ocr-textract.git'
+set :application,     'ocr-textract'
 set :user,            'dev'
 set :puma_threads,    [4, 16]
 set :puma_workers,    0
