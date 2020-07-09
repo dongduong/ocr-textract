@@ -95,7 +95,8 @@ Rails.application.configure do
       bucket: 'mytest-s3-amazon',
       access_key_id: 'AKIAITBYCTRFYXHP7OZQ',
       secret_access_key: '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',
-      s3_region: 'ap-southeast-1'
+      s3_region: 'ap-southeast-1',
+      region: 'ap-southeast-1'
     }
   }
 end
