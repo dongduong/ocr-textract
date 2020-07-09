@@ -81,7 +81,7 @@ end
 
 namespace :dotenv do
   task :symlink do
-    run "ln -nfs #{shared_path}/.env #{latest_release}/.env"
+    run "ln -nfs #{shared_path}/.env #{release_path}/.env"
   end
 end
 
