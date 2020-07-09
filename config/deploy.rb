@@ -85,7 +85,7 @@ namespace :dotenv do
   end
 end
 
-after 'deploy:finalize_update', 'dotenv:symlink'
+before 'deploy:restart', 'dotenv:symlink'
 
 # ps aux | grep puma    # Get puma pid
 # kill -s SIGUSR2 pid   # Restart puma
