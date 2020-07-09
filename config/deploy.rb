@@ -34,14 +34,6 @@ set :puma_init_active_record, true  # Change to false when not using ActiveRecor
 # set :linked_files, %w{config/database.yml}
 # set :linked_dirs,  %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
-set :default_environment, {
-  'AWS_ACCESS_KEY_ID' => "AKIAITBYCTRFYXHP7OZQ",
-  'AWS_SECRET_ACCESS_KEY' => "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",
-  'AWS_S3_REGION' => "ap-southeast-1",
-  'AWS_REGION' => "ap-southeast-1",
-  'S3_BUCKET_NAME' => "mytest-s3-amazon"
-}
-
 namespace :puma do
   desc 'Create Directories for Puma Pids and Socket'
   task :make_dirs do
@@ -86,6 +78,14 @@ namespace :deploy do
   after  :finishing,    :cleanup
   after  :finishing,    :restart
 end
+
+namespace :dotenv do
+  task :symlink do
+    run "ln -nfs #{shared_path}/.env #{latest_release}/.env"
+  end
+end
+
+after 'deploy:finalize_update', 'dotenv:symlink'
 
 # ps aux | grep puma    # Get puma pid
 # kill -s SIGUSR2 pid   # Restart puma
