@@ -19,11 +19,12 @@ class AccidentInvoiceController < ApplicationController
       end
 
       #start background job to analyse invoices
-      AnalyseInvoicesWorker.perform_async(invoices_ids) unless invoices_ids.blank?
+      #AnalyseInvoicesWorker.perform_async(invoices_ids) unless invoices_ids.blank?
 
       redirect_to accident_invoice_index_path, notice: 'Invoices are created Susscessful'
     end
   rescue StandardError => e
+    puts e.message
     redirect_to accident_invoice_index_path, error: 'Failed to create new Invoices'
   end
 
