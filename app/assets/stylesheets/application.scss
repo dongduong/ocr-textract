@@ -1,0 +1,21 @@
+$background-color: #F6F7FB;
+$primary-color: #1F56A7;
+
+@import 'bootstrap';
+@import 'dashboard';
+@import 'sidebar';
+@import 'navbar';
+@import 'table';
+@import 'invoice';
+
+body {
+  background: $background-color;
+}
+
+#content_wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: $background-color;
+  padding: 0 0 60px;
+}

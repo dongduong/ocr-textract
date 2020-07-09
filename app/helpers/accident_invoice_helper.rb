@@ -1,0 +1,2 @@
+module AccidentInvoiceHelper
+end

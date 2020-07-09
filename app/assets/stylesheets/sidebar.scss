@@ -1,0 +1,51 @@
+.header-action {
+  padding-top: 7px;
+}
+.btn {
+  margin-right: 3px;
+}
+.sidenav {
+  height: 100%;
+  width: 60px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #1F56A7;
+  overflow-x: hidden;
+}
+
+.sidenav a {
+  text-align: center;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.menu-label-link {
+  padding-left: 7px !important;
+}
+
+.sub-menu-label {
+  margin-left: 6px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 10px;}
+  .sidenav a {font-size: 18px;}
+}
+.header-action  {
+  a.logout-btn, a.login-btn {
+    position: absolute;
+    right: 15px;
+  }
+  a.dashboard-btn {
+    position: absolute;
+    right: 95px;
+  }
+}

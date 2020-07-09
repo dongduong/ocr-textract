@@ -1,0 +1,41 @@
+development:
+  adapter: mysql2
+  encoding: utf8
+  collation: utf8_unicode_ci
+  database: <%= ENV['MYSQL2_DATABASE_DEVELOPMENT'] %>
+  username: <%= ENV['MYSQL2_USERNAME_DEVELOPMENT'] %>
+  password: <%= ENV['MYSQL2_PASSWORD_DEVELOPMENT'] %>
+  host: <%= ENV['MYSQL2_HOST_DEVELOPMENT'] %>
+
+test:
+  adapter: mysql2
+  encoding: utf8
+  collation: utf8_unicode_ci
+  database: <%= ENV['MYSQL2_DATABASE_TEST'] %>
+  username: <%= ENV['MYSQL2_USERNAME_TEST'] %>
+  password: <%= ENV['MYSQL2_PASSWORD_TEST'] %>
+  host: <%= ENV['MYSQL2_HOST_TEST'] %>
+
+# As with config/secrets.yml, you never want to store sensitive information,
+# like your database password, in your source code. If your source code is
+# ever seen by anyone, they now have access to your database.
+#
+# Instead, provide the password as a unix environment variable when you boot
+# the app. Read http://guides.rubyonrails.org/configuring.html#configuring-a-database
+# for a full rundown on how to provide these environment variables in a
+# production deployment.
+#
+# On Heroku and other platform providers, you may have a full connection URL
+# available as an environment variable. For example:
+#
+#   DATABASE_URL="mysql2://myuser:mypass@localhost/somedatabase"
+#
+# You can use this database configuration with:
+#
+#   production:
+#     url: <%= ENV['DATABASE_URL'] %>
+#
+production:
+  database: mc-orc-demo_production
+  username: mc-orc-demo
+  password: <%= ENV['MC-ORC-DEMO_DATABASE_PASSWORD'] %>
