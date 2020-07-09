@@ -2,19 +2,19 @@ development:
   adapter: mysql2
   encoding: utf8
   collation: utf8_unicode_ci
-  database: mc-ocr-demo
-  username: dev
-  password: dev123456
-  host: localhost
+  database: <%= ENV['MYSQL2_DATABASE_DEVELOPMENT'] %>
+  username: <%= ENV['MYSQL2_USERNAME_DEVELOPMENT'] %>
+  password: <%= ENV['MYSQL2_PASSWORD_DEVELOPMENT'] %>
+  host: <%= ENV['MYSQL2_HOST_DEVELOPMENT'] %>
 
 test:
   adapter: mysql2
   encoding: utf8
   collation: utf8_unicode_ci
-  database: mc-ocr-demo-test
-  username: dev
-  password: dev123456
-  host: localhost
+  database: <%= ENV['MYSQL2_DATABASE_TEST'] %>
+  username: <%= ENV['MYSQL2_USERNAME_TEST'] %>
+  password: <%= ENV['MYSQL2_PASSWORD_TEST'] %>
+  host: <%= ENV['MYSQL2_HOST_TEST'] %>
 
 staging:
   adapter: mysql2
@@ -52,3 +52,4 @@ production:
   username: dev
   password: dev123456
   host: localhost
+  

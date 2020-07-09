@@ -34,14 +34,6 @@ set :puma_init_active_record, true  # Change to false when not using ActiveRecor
 # set :linked_files, %w{config/database.yml}
 # set :linked_dirs,  %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
-set :default_environment, {
-  'AWS_ACCESS_KEY_ID' => "AKIARHFICHDDBD4QKDCK",
-  'AWS_SECRET_ACCESS_KEY' => "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",
-  'AWS_S3_REGION' => "ap-southeast-1",
-  'AWS_REGION' => "ap-southeast-1",
-  'S3_BUCKET_NAME' => "mytest-s3-amazon"
-}
-
 namespace :puma do
   desc 'Create Directories for Puma Pids and Socket'
   task :make_dirs do

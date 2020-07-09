@@ -93,8 +93,8 @@ Rails.application.configure do
     storage: :s3,
     s3_credentials: {
       bucket: 'mytest-s3-amazon',
-      access_key_id: 'AKIARHFICHDDBD4QKDCK',
-      secret_access_key: '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',
+      access_key_id: 'AKIAITBYCTRFYXHP7OZQ',
+      secret_access_key: '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',
       s3_region: 'ap-southeast-1'
     }
   }
