@@ -13,8 +13,9 @@ gem 'mysql2', '>= 0.3.18', '< 0.6.0'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
 # Use SCSS for stylesheets
-gem 'bootstrap-sass', '~> 3.4'
+# gem 'bootstrap-sass', '~> 3.4'
 gem 'sass-rails', '~> 5.0'
+gem 'bootstrap', '~> 4.2', '>= 4.2.1'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
@@ -44,6 +45,8 @@ gem 'carrierwave', '~> 0.11.2'
 gem "simple_form"
 gem "paperclip"
 gem "dotenv-rails", "~> 2.2"
+gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.2'
+gem 'data-confirm-modal'
 
 #PDF
 gem 'prawn', '~> 2.1'

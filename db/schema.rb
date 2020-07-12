@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200709132326) do
+ActiveRecord::Schema.define(version: 20200711135335) do
 
   create_table "accident_invoices", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "name"
@@ -27,6 +27,8 @@ ActiveRecord::Schema.define(version: 20200709132326) do
     t.string "job_status"
     t.boolean "can_show_highlight", default: false
     t.integer "total_pages", default: 1
+    t.string "text_job_id"
+    t.string "text_job_status"
   end
 
   create_table "bounding_boxes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
@@ -69,6 +71,13 @@ ActiveRecord::Schema.define(version: 20200709132326) do
     t.integer "invoice_id"
     t.integer "row_count"
     t.integer "column_count"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "word_entries", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.integer "invoice_id"
+    t.string "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

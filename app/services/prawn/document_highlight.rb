@@ -9,6 +9,10 @@ class Prawn::DocumentHighlight
   end
 
   def generate
+    @invoice.word_entries.each do |word|
+      word.geometry_blocks.each{ |b| draw_bounding(b, '187BCD') }
+    end
+
     @invoice.key_values.each do |kv|
       kv.geometry_blocks.each{ |b| draw_bounding(b, 'FFFF00') }
     end
@@ -23,6 +27,10 @@ class Prawn::DocumentHighlight
   def generate_on_page(page)
     @pdf_page = Prawn::Document.new(:page_size => 'A4')
     @file_path = "public/files/highlight/#{@invoice.job_id}_#{page}.pdf"
+
+    @invoice.word_entries.at_page(page).each do |word|
+      draw_bounding(word.geometry_block, '187BCD')
+    end
 
     @invoice.key_values.at_page(page).each do |kv|
       kv.geometry_blocks.each{ |b| draw_bounding(b, 'FFFF00') }

@@ -1,50 +1,80 @@
+%br
+.button-style.pull-left
+= link_to root_path, class: 'back-link', 'data-turbolinks' => false do
+  %i.fa.fa-angle-left
+  Back
+
 .container
+  .row
+    %h1= @invoice.name
+    = hidden_field_tag :invoice_status, @invoice.invoice_status
+    %table.table.table-bordered.common-table.tablesorter#invoice_job_info
+      %tbody
+        %tr
+          %td Status
+          %td= @invoice.invoice_status
+        %tr
+          %td Document
+          %td= link_to @invoice.invoice_file_name, @invoice.invoice.url
   %br
-  = link_to "<< Back", accident_invoice_index_path
-
-  %h1= @invoice.name
-
-  %table.table.table-bordered.common-table.tablesorter#invoice_job_info
-    %tbody
-      %tr
-        %td Job ID
-        %td= @invoice.job_id
-      %tr
-        %td Job Status
-        %td= @invoice.job_status
-      %tr
-        %td Download
-        %td= link_to @invoice.invoice_file_name, @invoice.invoice.url
-  %br
-- if @invoice.extract_finish?
-
-  - if @invoice.can_show_highlight?
+.row
+  - if @invoice.extract_finish? && @invoice.get_raw_text_finish?
     .col-sm-7
-      %embed{:height => "800", :src => @invoice.highlight_url, :type => "application/pdf", :width => "100%"} 
+      - if @invoice.can_show_highlight?
+        %embed{:height => "800", :src => @invoice.highlight_url, :type => "application/pdf", :width => "100%"} 
 
-  .col-sm-5
-    %ul.nav.nav-tabs
-      %li= link_to 'Key & Value', '#keyvalue', data: { toggle: 'tab', target: '#keyvalue' }
-      %li= link_to 'Tables', '#tables', data: { toggle: 'tab', target: '#tables' }
+    .col-sm-5
+      %ul.nav.nav-tabs
+        %li.nav-item
+          = link_to 'Raw Text', '#text', data: { toggle: 'tab', target: '#text' }, :class => 'active nav-link'
+        %li.nav-item
+          = link_to 'Key & Value', '#keyvalue', data: { toggle: 'tab', target: '#keyvalue' }, :class => 'nav-link'
+        %li.nav-item
+          = link_to 'Tables', '#tables', data: { toggle: 'tab', target: '#tables' }, :class => 'nav-link'
 
-
-    .tab-content
-      #keyvalue.tab-pane
-        %table.table.table-bordered.common-table.tablesorter#key_value_detail_table
-          %tbody
-            - @invoice.key_values.each do |kv|
-              %tr
-                %td= kv.key
-                %td= kv.value
-
-      #tables.tab-pane
-        - @invoice.table_entries.each do |t|
-          %table.table.table-bordered.common-table.tablesorter#table_entries_table
+      .tab-content
+        #text.tab-pane.active
+          %br
+          - @invoice.word_entries.each do |w|
+            .span.badge.badge-info
+              = w.value
+            &nbsp;
+        #keyvalue.tab-pane
+          %table.table.table-bordered.common-table.tablesorter#key_value_detail_table
             %tbody
-              - for row in 1..t.row_count
+              - @invoice.key_values.each do |kv|
                 %tr
-                  - for column in 1..t.column_count
-                    %td= t.cell_entries.where(row_index: row, column_index: column).first&.value
-          %br
-          %br
+                  %td= kv.key
+                  %td= kv.value
 
+        #tables.tab-pane
+          - @invoice.table_entries.each do |t|
+            %table.table.table-bordered.common-table.tablesorter#table_entries_table
+              %tbody
+                - for row in 1..t.row_count
+                  %tr
+                    - for column in 1..t.column_count
+                      %td= t.cell_entries.where(row_index: row, column_index: column).first&.value
+            %br
+            %br
+  - else 
+    .col-sm-12
+      .d-flex.justify-content-center
+        .spinner-grow.text-dark{:role => "status"}
+          %span.sr-only Loading...
+        .spinner-grow.text-danger{:role => "status"}
+          %span.sr-only Loading...
+        .spinner-grow.text-warning{:role => "status"}
+          %span.sr-only Loading...
+
+:coffeescript
+  $ ->
+    window.proceedUpdateStatus = setTimeout(()->
+      _checkStatus()
+    , 5000)
+
+  _checkStatus = () ->
+    status = $("#invoice_status").val()
+    if status != 'DONE'
+      location.reload()
+    

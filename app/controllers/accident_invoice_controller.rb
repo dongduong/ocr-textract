@@ -23,7 +23,12 @@ class AccidentInvoiceController < ApplicationController
 
       analyse_invoices(invoices_ids) unless invoices_ids.blank?
 
-      redirect_to accident_invoice_index_path, notice: 'Invoices are created Susscessful'
+      if invoices_ids.count == 1
+        invoice = AccidentInvoice.find_by_id(invoices_ids.first)
+        redirect_to accident_invoice_path(invoice), notice: 'Invoice was created susscessful'
+      else
+        redirect_to accident_invoice_index_path, notice: 'Invoices were created susscessful'
+      end
     end
   rescue StandardError => e
     puts "==================================="
@@ -35,6 +40,19 @@ class AccidentInvoiceController < ApplicationController
   def show
     @invoice = AccidentInvoice.find(params[:id])
     get_analyse_result unless @invoice.extract_finish?
+    get_document_text_result unless @invoice.get_raw_text_finish?
+    PdfMerger.new(@invoice).perform unless @invoice.can_show_highlight?
+  end
+
+  def destroy
+    @invoice = AccidentInvoice.find(params[:id])
+
+    @invoice.destroy
+    if @invoice.destroyed?
+      flash[:notice] = "Invoice was deleted successfully"
+    else
+      flash[:error] = "Failed to delete Invoice"
+    end
   end
 
   private
@@ -76,7 +94,10 @@ class AccidentInvoiceController < ApplicationController
     @invoice.vin = analyzer.vin if analyzer.vin
     @invoice.plate = analyzer.plate if analyzer.plate
     @invoice.save
+  end
 
-    PdfMerger.new(@invoice).perform
+  def get_document_text_result
+    analyzer = InvoiceAnalyzer.new(@invoice)
+    analyzer.get_document_text_results
   end
 end

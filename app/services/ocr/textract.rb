@@ -162,6 +162,19 @@ class Ocr::Textract
     end
   end
 
+  #### Raw text
+  def store_all_words(invoice)
+    word_entry_list = find_by_block_type("WORD")
+    return unless word_entry_list
+    word_entry_list.each do |b|
+      w = WordEntry.new
+      w.invoice_id = invoice.id
+      w.value = b[:text]
+      w.save
+      store_geometry_bounding(w, b, 'WORD')
+    end
+  end
+
   ###########################
   # DETECT AND GET RESULT
 

@@ -6,6 +6,7 @@ class PdfMerger
   end
 
   def perform
+    return unless @invoice.extract_finish? && @invoice.get_raw_text_finish?
     download_from_s3
     highlight_service = Prawn::DocumentHighlight.new(@invoice)
     pdf = CombinePDF.load @invoice_file_path

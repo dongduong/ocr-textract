@@ -1,0 +1,4 @@
+- if flash[:error].present? || flash[:notice].present? || flash[:alert].present?
+  .alert.callout
+    %p
+      = flash[:error] || flash[:notice] || flash[:alert]
